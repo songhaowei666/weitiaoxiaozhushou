@@ -2,7 +2,7 @@ import copy
 import warnings
 from dataclasses import asdict, dataclass
 from typing import Callable, List, Optional
-
+import os
 import streamlit as st
 import torch
 from torch import nn
@@ -14,9 +14,10 @@ from transformers import AutoTokenizer, AutoModelForCausalLM  # isort: skip
 
 logger = logging.get_logger(__name__)
 
-# base_path = './weitiaoxiaozhushou'
-# os.system(f'git clone https://code.openxlab.org.cn/songhaowei/weitiaoxiaozhushou.git {base_path}')
-# os.system(f'cd {base_path} && git lfs pull')
+base_path = './weitiaoxiaozhushou'
+os.system(f'git clone https://code.openxlab.org.cn/songhaowei/weitiaoxiaozhushou.git {base_path}')
+os.system(f'cd {base_path} && git lfs pull')
+os.system(f'cd ..')
 
 @dataclass
 class GenerationConfig:
