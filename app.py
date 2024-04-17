@@ -169,7 +169,7 @@ def on_btn_click():
 def load_model():
     model = (AutoModelForCausalLM.from_pretrained('./weitiaoxiaozhushou',
                                                   trust_remote_code=True).to(
-                                                      torch.bfloat16))
+                                                      torch.bfloat16).cuda())
     tokenizer = AutoTokenizer.from_pretrained('./weitiaoxiaozhushou',
                                               trust_remote_code=True)
     return model, tokenizer
