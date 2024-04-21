@@ -20,7 +20,7 @@ os.system(f'git clone https://code.openxlab.org.cn/songhaowei/weitiaoxiaozhushou
 os.system(f'cd {base_path} && git lfs pull')
 os.system(f'cd ..')
 
-st.session_state.messages = []
+# messages = []
 @dataclass
 class GenerationConfig:
     # this config is used for chat to provide more diversity
@@ -164,7 +164,7 @@ def generate_interactive(
 
 
 def on_btn_click():
-    del st.session_state.messages
+    print(1)
 
 
 @st.cache_resource
@@ -201,19 +201,19 @@ cur_query_prompt = '<|im_start|>user\n{user}<|im_end|>\n\
 
 
 def combine_history(prompt):
-    messages = st.session_state.messages
-    meta_instruction = ('')
-    total_prompt = f"<s><|im_start|>system\n{meta_instruction}<|im_end|>\n"
-    for message in messages:
-        cur_content = message['content']
-        if message['role'] == 'user':
-            cur_prompt = user_prompt.format(user=cur_content)
-        elif message['role'] == 'robot':
-            cur_prompt = robot_prompt.format(robot=cur_content)
-        else:
-            raise RuntimeError
-        total_prompt += cur_prompt
-    total_prompt = total_prompt + cur_query_prompt.format(user=prompt)
+    # messages = messages
+    # meta_instruction = ('')
+    # total_prompt = f"<s><|im_start|>system\n{meta_instruction}<|im_end|>\n"
+    # for message in messages:
+    #     cur_content = message['content']
+    #     if message['role'] == 'user':
+    #         cur_prompt = user_prompt.format(user=cur_content)
+    #     elif message['role'] == 'robot':
+    #         cur_prompt = robot_prompt.format(robot=cur_content)
+    #     else:
+    #         raise RuntimeError
+    #     total_prompt += cur_prompt
+    total_prompt = cur_query_prompt.format(user=prompt)
     return total_prompt
 
 
@@ -229,13 +229,13 @@ def main():
     generation_config = prepare_generation_config()
 
     # Initialize chat history
-    if 'messages' not in st.session_state:
-        st.session_state.messages = []
-    time.sleep(1)
+    # if 'messages' not in st.session_state:
+    #     st.session_state.messages = []
+    # time.sleep(1)
     # Display chat messages from history on app rerun
-    for message in st.session_state.messages:
-        with st.chat_message(message['role'], avatar=message.get('avatar')):
-            st.markdown(message['content'])
+    # for message in messages:
+    #     with st.chat_message(message['role'], avatar=message.get('avatar')):
+    #         st.markdown(message['content'])
 
     # Accept user input
     if prompt := st.chat_input('What is up?'):
@@ -244,10 +244,10 @@ def main():
             st.markdown(prompt)
         real_prompt = combine_history(prompt)
         # Add user message to chat history
-        st.session_state.messages.append({
-            'role': 'user',
-            'content': prompt,
-        })
+        # messages.append({
+        #     'role': 'user',
+        #     'content': prompt,
+        # })
 
         with st.chat_message('robot'):
             message_placeholder = st.empty()
@@ -262,10 +262,10 @@ def main():
                 message_placeholder.markdown(cur_response + '▌')
             message_placeholder.markdown(cur_response)
         # Add robot response to chat history
-        st.session_state.messages.append({
-            'role': 'robot',
-            'content': cur_response,  # pylint: disable=undefined-loop-variable
-        })
+        # messages.append({
+        #     'role': 'robot',
+        #     'content': cur_response,  # pylint: disable=undefined-loop-variable
+        # })
         torch.cuda.empty_cache()
 
 
