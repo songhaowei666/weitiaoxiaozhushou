@@ -7,8 +7,9 @@ import streamlit as st
 import torch
 from torch import nn
 from transformers.generation.utils import (LogitsProcessorList,
-                                           StoppingCriteriaList)
+                                          StoppingCriteriaList)
 from transformers.utils import logging
+import time
 
 from transformers import AutoTokenizer, AutoModelForCausalLM  # isort: skip
 
@@ -229,7 +230,7 @@ def main():
     # Initialize chat history
     if 'messages' not in st.session_state:
         st.session_state.messages = []
-
+    time.sleep(0.1)
     # Display chat messages from history on app rerun
     for message in st.session_state.messages:
         with st.chat_message(message['role'], avatar=message.get('avatar')):
