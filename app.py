@@ -230,7 +230,7 @@ def main():
     # Initialize chat history
     if 'messages' not in st.session_state:
         st.session_state.messages = []
-    time.sleep(0.1)
+    time.sleep(1)
     # Display chat messages from history on app rerun
     for message in st.session_state.messages:
         with st.chat_message(message['role'], avatar=message.get('avatar')):
