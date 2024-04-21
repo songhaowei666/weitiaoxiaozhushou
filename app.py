@@ -20,6 +20,7 @@ os.system(f'git clone https://code.openxlab.org.cn/songhaowei/weitiaoxiaozhushou
 os.system(f'cd {base_path} && git lfs pull')
 os.system(f'cd ..')
 
+st.session_state.messages = []
 @dataclass
 class GenerationConfig:
     # this config is used for chat to provide more diversity
